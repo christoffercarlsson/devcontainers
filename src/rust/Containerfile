@@ -16,4 +16,4 @@ USER root
 
 ENTRYPOINT ["/usr/local/sbin/entrypoint"]
 
-LABEL org.opencontainers.image.source=https://github.com/christoffercarlsson/containers
+LABEL org.opencontainers.image.source=https://github.com/christoffercarlsson/devcontainers
