@@ -1,4 +1,4 @@
-FROM ghcr.io/christoffercarlsson/devcontainers/base@sha256:2d6f17392f74ecbceb2b59d303021f698555961ad807c353272bff123413f83d AS runtime
+FROM ghcr.io/christoffercarlsson/devcontainers/base@sha256:a3b2dc4887415c1d0317428f2431ca4f4318fa6620b95ad014e1c5820b934596 AS runtime
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
