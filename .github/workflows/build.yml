@@ -17,6 +17,8 @@ jobs:
             path: src/c
           - name: go
             path: src/go
+          - name: python
+            path: src/python
           - name: rust
             path: src/rust
           - name: typescript

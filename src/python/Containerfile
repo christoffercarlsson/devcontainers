@@ -1,0 +1,19 @@
+FROM ghcr.io/astral-sh/uv:0.13.7 AS uv
+
+FROM ghcr.io/astral-sh/ruff:0.17.3 AS ruff
+
+FROM ghcr.io/astral-sh/ty:0.0.97 AS ty
+
+FROM ghcr.io/christoffercarlsson/devcontainers/base@sha256:6b1266341ed2f46f4a1dc1a93aa7cdd6dd9f7ec0f03eb36ab50984973156ab57 AS runtime
+
+COPY --from=uv /uv /uvx /usr/local/bin/
+COPY --from=ruff /ruff /usr/local/bin/
+COPY --from=ty /ty /usr/local/bin/
+
+RUN uv --version \
+    && ruff --version \
+    && ty --version
+
+ENTRYPOINT ["/usr/local/sbin/entrypoint"]
+
+LABEL org.opencontainers.image.source=https://github.com/christoffercarlsson/devcontainers
