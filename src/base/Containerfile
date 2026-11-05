@@ -1,13 +1,13 @@
-FROM ghcr.io/christoffercarlsson/node@sha256:21429f5e718622987c721184831e4887672b40d0a7fb1cea79ac5b9b133c712a AS node-tools-builder
+FROM ghcr.io/christoffercarlsson/node@sha256:9b65b768e022bee915ef031da3d02f495d2cb294b4e59bccb2ac9794e99ed781 AS node-tools-builder
 
 RUN npm install -g --ignore-scripts \
     bash-language-server \
     @earendil-works/pi-coding-agent \
     tombi
 
-RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code
 
-FROM ghcr.io/christoffercarlsson/rust@sha256:1e72e85d9f58cdced1d96db92640d35a7c795374f91609baa27afd3cdc73b80a AS rust-tools-builder
+FROM ghcr.io/christoffercarlsson/rust@sha256:93252e80151aa4a6875df2e2fc9c46038206bdaede8a8314a2bd9edb3303bfa6 AS rust-tools-builder
 
 RUN cargo install --root /usr/local \
     bat \
@@ -18,9 +18,9 @@ RUN cargo install --root /usr/local \
     rumdl \
     tokei
 
-FROM ghcr.io/christoffercarlsson/lua-language-server@sha256:6ef86823e6413531996ca59afab60c50bb4042b3dbf9680c0aac399cad7c1f5f AS luals-builder
+FROM ghcr.io/christoffercarlsson/lua-language-server@sha256:147827be1a642c479b2e34e97ec2fc688ccfe922cdd29db8f690f82012effcd0 AS luals-builder
 
-FROM ghcr.io/christoffercarlsson/debian-neovim@sha256:3371e13da6d8079c96ea308604dd407c14053c11d0b0b7ba85f7947f62b0cb58 AS runtime
+FROM ghcr.io/christoffercarlsson/debian-neovim@sha256:e4eb85326959fd0f73c46fd764c2548cc8cbeed2de86d5131376167e9798a6fe AS runtime
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && rm -f /etc/dpkg/dpkg.cfg.d/docker \
