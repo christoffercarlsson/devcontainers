@@ -8,7 +8,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 USER dev
 
-RUN rustup toolchain install stable \
+RUN rustup toolchain install stable nightly \
     && rustup default stable \
     && rustup component add rust-analyzer rust-src
 
