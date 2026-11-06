@@ -1,0 +1,49 @@
+FROM ghcr.io/christoffercarlsson/tkey-builder@sha256:8f8a35bc4bafc3a191faef66e6198a0ac8eaa6b2ec4edd7ddbe880449362b46f AS tkey-builder
+
+FROM ghcr.io/christoffercarlsson/devcontainers/python@sha256:096d02fc14faf57cbded64ca9a5372d73b05dda75f33584f0f84942ad161259e AS runtime
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        clang-18 \
+        clang-format-18 \
+        clang-tidy-18 \
+        golang \
+        golang-mvdan-gofumpt-dev \
+        gopls \
+        libboost-filesystem1.83.0 \
+        libboost-program-options1.83.0 \
+        libboost-thread1.83.0 \
+        libffi8 \
+        libftdi1 \
+        libpython3.13 \
+        libreadline8t64 \
+        libtcl8.6 \
+        libusb-1.0-0 \
+        lld-18 \
+        llvm-18 \
+        perl \
+        python3 \
+        sdcc \
+        splint \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/lib/llvm-18/bin/* /usr/local/bin/
+
+COPY --from=tkey-builder /usr/local/ /usr/local/
+
+RUN usermod -aG dialout,plugdev dev
+
+RUN clang --version \
+    && ld.lld --version \
+    && go version \
+    && gopls version \
+    && yosys -V \
+    && nextpnr-ice40 --version \
+    && verilator --version \
+    && verible-verilog-ls --version \
+    && python3 -c "import cocotb"
+
+ENTRYPOINT ["/usr/local/sbin/entrypoint"]
+
+LABEL org.opencontainers.image.source=https://github.com/christoffercarlsson/devcontainers

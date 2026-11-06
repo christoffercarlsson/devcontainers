@@ -21,6 +21,8 @@ jobs:
             path: src/python
           - name: rust
             path: src/rust
+          - name: tkey
+            path: src/tkey
           - name: typescript
             path: src/typescript
     uses: docker/github-builder/.github/workflows/build.yml@073833262a23a17675c95c4541ab063b7646756b
